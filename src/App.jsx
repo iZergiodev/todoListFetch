@@ -11,11 +11,8 @@ function App() {
       "https://playground.4geeks.com/todo/users/sergio",
       { method: "GET" }
     );
-    if (!response.ok) throw new Error("Error al obtener las tareas");
     const data = await response.json();
-    console.log(data);
     const todos = data.todos.map((t) => ({ taskElement: t.label, id: t.id }));
-    console.log(todos);
     setTask(todos);
   };
 
@@ -41,7 +38,6 @@ function App() {
     );
 
     const result = await response.json();
-    console.log("Repuesta:", result);
     setTask([...task, { taskElement: name, id: result.id }]);
   };
 
@@ -52,13 +48,13 @@ function App() {
     await fetch(`https://playground.4geeks.com/todo/todos/${t.id}`, {
       method: "DELETE",
     });
-    console.log(`La id: ${t.id} eliminada satisfactoriamente`);
   };
 
   return (
     <>
-      <div className="bg-black w-[60vw] min-h-[60vh] max-h-[100vh] mx-auto my-auto rounded-lg pb-6 overflow-y-auto">
-        <div className="sticky top-0 left-0 w-full bg-black z-20">
+      <div className="bg-black lg:w-[60vw] min-h-[85vh] max-h-[85vh] lg:min-h-[60vh] lg:max-h-[60vh] mx-auto lg:my-auto rounded-lg pb-6 lg:overflow-y-auto w-[100vw] h-[100%]"
+      >
+        <div className="w-full bg-black z-20">
           <Header addTask={addTask} task={task} />
         </div>
         {task.map((t, index) => (
