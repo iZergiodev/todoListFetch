@@ -16,7 +16,7 @@ function Header({ addTask, task }) {
 
   return (
     <>
-      <div className="flex flex-col min-h-[15%] lg:flex-row p-5 w-full bg-slate-200 text-black justify-around items-center rounded-lg">
+      <div className="flex flex-col min-h-[15%] lg:flex-row p-5 w-full bg-zinc-100 text-black justify-around items-center rounded-lg">
         <h1 className="hidden lg:block text-3xl font-bold scale-125">TODO LIST</h1>
         <h2 className="hidden lg:block">{task.length} tareas pendientes</h2>
         <div className="flex gap-10">

@@ -7,18 +7,25 @@ function App() {
   const [task, setTask] = useState([]);
 
   const fetchTasks = async () => {
+
     const response = await fetch(
       "https://playground.4geeks.com/todo/users/sergio",
       { method: "GET" }
     );
+    if(response.status === 404) {
+      await fetch('https://playground.4geeks.com/todo/users/sergio', {
+        method: "POST"
+      })
+      return fetchTasks()
+    }
     const data = await response.json();
-    const todos = data.todos.map((t) => ({ taskElement: t.label, id: t.id }));
+    const todos = data.todos.map((e) => ({ taskElement: e.label, id: e.id }));
     setTask(todos);
   };
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  },[]);
 
   const addTask = async (name) => {
     const data = {
@@ -40,7 +47,7 @@ function App() {
     const result = await response.json();
     setTask([...task, { taskElement: name, id: result.id }]);
   };
-
+//https://stackblitz.com/edit/vitejs-vite-p2iwb4mq?file=src%2FApp.jsx,src%2FApp.css
   const deleteTask = async (indexRemove, t) => {
     const updatedTask = task.filter((_, index) => index != indexRemove);
     setTask(updatedTask);
@@ -52,7 +59,7 @@ function App() {
 
   return (
     <>
-      <div className="bg-black lg:w-[60vw] min-h-[85vh] max-h-[85vh] lg:min-h-[60vh] lg:max-h-[60vh] mx-auto lg:my-auto rounded-lg pb-6 lg:overflow-y-auto w-[100vw] h-[100%]"
+      <div className=" lg:w-[60vw] min-h-[85vh] max-h-[85vh] lg:min-h-[60vh] lg:max-h-[60vh] mx-auto lg:my-auto rounded-lg pb-6 lg:overflow-y-auto w-[100vw] h-[100%]" id="hola"
       >
         <div className="w-full bg-black z-20">
           <Header addTask={addTask} task={task} />
